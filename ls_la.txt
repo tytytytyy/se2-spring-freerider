@@ -1,0 +1,35 @@
+.:
+total 63
+drwx------+ 1 tabea tabea     0 May 28 15:27 .
+drwx------+ 1 tabea tabea     0 May 28 15:02 ..
+-rwx------+ 1 tabea tabea  1267 May  7 19:22 .classpath
+-rwx------+ 1 tabea tabea   395 May  7 19:21 .gitignore
+drwx------+ 1 tabea tabea     0 May  7 19:21 .mvn
+-rwx------+ 1 tabea tabea   573 May 28 14:33 .project
+drwx------+ 1 tabea tabea     0 May  7 19:22 .settings
+-rw-r--r--+ 1 tabea tabea     0 May 22 13:48 0.0.1-SNAPSHOT
+-rwx------+ 1 tabea tabea  1093 May  7 19:21 HELP.md
+drwx------+ 1 tabea tabea     0 May  7 19:22 bin
+-rw-r--r--+ 1 tabea tabea   557 May 28 15:26 find_src.txt
+-rw-r--r--+ 1 tabea tabea     0 May 28 15:27 ls_la.txt
+-rwx------+ 1 tabea tabea 10070 May  7 19:21 mvnw
+-rwx------+ 1 tabea tabea  6608 May  7 19:21 mvnw.cmd
+-rwx------+ 1 tabea tabea  1245 May 22 14:09 pom.xml
+drwx------+ 1 tabea tabea     0 May  7 19:22 spring-boot
+-rw-r--r--+ 1 tabea tabea  9766 May 28 15:26 spring_log.txt
+drwx------+ 1 tabea tabea     0 May  7 19:21 src
+drwx------+ 1 tabea tabea     0 May 28 15:22 target
+
+target:
+total 16672
+drwx------+ 1 tabea tabea        0 May 28 15:22 .
+drwx------+ 1 tabea tabea        0 May 28 15:27 ..
+drwx------+ 1 tabea tabea        0 May 28 15:22 classes
+-rwx------+ 1 tabea tabea 17058219 May 28 15:22 customer-manager-0.0.1-SNAPSHOT.jar
+-rwx------+ 1 tabea tabea     3705 May 28 15:22 customer-manager-0.0.1-SNAPSHOT.jar.original
+drwx------+ 1 tabea tabea        0 May 28 15:22 generated-sources
+drwx------+ 1 tabea tabea        0 May 28 15:22 generated-test-sources
+drwx------+ 1 tabea tabea        0 May 28 15:22 maven-archiver
+drwx------+ 1 tabea tabea        0 May 28 15:22 maven-status
+drwx------+ 1 tabea tabea        0 May 28 15:22 surefire-reports
+drwx------+ 1 tabea tabea        0 May 28 15:22 test-classes

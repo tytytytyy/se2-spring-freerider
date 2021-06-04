@@ -57,10 +57,9 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 
 	@Override
 	public Optional<Customer> findById(String id) {
-		
-		Optional.of(customerList.get(id));
-		
-		return Optional.empty();
+	
+	
+		return Optional.ofNullable(customerList.get(id)); //?
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 	@Override
 	public Iterable<Customer> findAll() {
 		
-		return (Iterable<Customer>) customerList;
+		return customerList.keySet();
 	}
 
 	@Override

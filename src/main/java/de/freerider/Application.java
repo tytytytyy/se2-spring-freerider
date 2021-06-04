@@ -45,16 +45,11 @@ public class Application {
 		
 
 		
-		
-
-		
-		
 		cR.saveAll(cList);
 		
 		cR.save(tina);
 		tina.setId("001");
 
-		cR.findById("001");
 		cR.existsById("001");
 		cR.findAll();
 		cR.count();

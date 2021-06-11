@@ -37,7 +37,7 @@ public class Application {
 
 
 	public static void log( String msg ) {
-		System.err.println( Application.class.getSimpleName() + "::" + msg );
+		//System.err.println( Application.class.getSimpleName() + "::" + msg );
 	}
 
 }

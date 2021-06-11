@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+	<java.version>14</java.version>
+	<maven.test.skip>false</maven.test.skip>	<!-- true: disable tests -->
+  </properties>
+
+  <groupId>de.freerider</groupId>
+  <artifactId>freerider-application</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.5.0</version>	<!-- defines version of all spring modules -->
+	<relativePath/>				<!-- lookup parent from repository -->
+  </parent>
+
+
+  <!-- 
+	Spring supports a variety of "starters", which are configurations to launch Spring
+	- spring-boot-starter			; Spring starter that only launches Spring
+	- spring-boot-starter-web		; Spring also launches the tomcat HTTP-server
+	- spring-boot-starter-test		; Spring also launches the JUnit5 test framework
+	- ...
+	- list of starters: https://github.com/spring-projects/spring-boot/tree/main/spring-boot-project/spring-boot-starters
+  -->
+  <dependencies>
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>	<!-- used starter configuration -->
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+	</dependency>
+
+  </dependencies>
+
+  <build>
+	<plugins>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<!-- choose main class to launch -->
+			<!-- configuration>
+				<mainClass>de.freerider.Application</mainClass>
+			</configuration -->
+		</plugin>
+	</plugins>
+  </build>
+
+</project>

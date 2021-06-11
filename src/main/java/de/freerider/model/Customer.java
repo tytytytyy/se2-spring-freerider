@@ -8,7 +8,7 @@ public class Customer {
 	String contact;
 	Status status;
 
-	enum Status {
+	public enum Status {
 		  New,
 		  InRegistration,
 		  Active,
@@ -16,7 +16,7 @@ public class Customer {
 		  Deleted
 		}
 
-	public Customer(String lastName, String firstName, String contact){
+	public Customer(String firstName, String lastName,  String contact){
 		this.id = null;
 		this.lastName = lastName;
 		this.firstName = firstName;

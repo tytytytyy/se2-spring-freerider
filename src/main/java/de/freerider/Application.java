@@ -36,7 +36,7 @@ public class Application {
 		tina.setId("001");
 		cR.save(tina);
 
-		System.out.println(tina);
+		System.out.println(tina.getFirstName());
 
 		cList.add(hans);
 		cList.add(baran);
@@ -59,7 +59,7 @@ public class Application {
 		System.out.println(cR.count());
 
 
-		SpringApplication.run(Application.class, args);
+		//SpringApplication.run(Application.class, args);
 
 	}
 

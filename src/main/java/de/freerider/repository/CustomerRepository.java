@@ -17,11 +17,11 @@ import de.freerider.model.Customer;
 public class CustomerRepository implements CrudRepository<Customer, String> {
 	//
 	private final IDGenerator idGen = new IDGenerator( "C", IDGenerator.IDTYPE.NUM, 6 );
-	Map<Customer, String> customerList;
+	Map<String, Customer> customerList;
 
 	
 	public CustomerRepository(){
-		customerList = new HashMap<Customer, String>();
+		customerList = new HashMap<String, Customer>();
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 			entity.setId(newId);
 		}
 
-		customerList.put(entity,entity.getId() );
+		customerList.put(entity.getId(), entity);
 		
 		return entity;
 	}
@@ -58,8 +58,8 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 	@Override
 	public Optional<Customer> findById(String id) {
 	
-	
-		return Optional.ofNullable(customerList.get(id)); //?
+		
+		return Optional.of(customerList.get(id)); //?
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 	@Override
 	public Iterable<Customer> findAll() {
 		
-		return customerList.keySet();
+		return customerList.values();
 	}
 
 	@Override

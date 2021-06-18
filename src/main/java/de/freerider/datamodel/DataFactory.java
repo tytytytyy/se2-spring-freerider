@@ -1,11 +1,11 @@
-package de.freerider.model;
+package de.freerider.datamodel;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import de.freerider.model.Customer.Status;
+import de.freerider.datamodel.Customer.Status;
 
 
 /**
@@ -13,6 +13,7 @@ import de.freerider.model.Customer.Status;
  * 
  * @author svgr2
  */
+
 @Component
 public class DataFactory {
 
@@ -30,6 +31,9 @@ public class DataFactory {
 			throw new IllegalArgumentException( "argument: map is null" );
 		//
 		String id = (String)map.get( "id" );
+		if( id != null && id.equals( "null" ) ) {
+			id = null;
+		}
 		String firstName = (String)map.get( "firstName" );
 		String lastName = (String)map.get( "lastName" );
 		String contact = (String)map.get( "contact" );
@@ -54,7 +58,6 @@ public class DataFactory {
 		//
 		return customer;
 	}
-
 
 	/**
 	 * Create some Customer mock data.

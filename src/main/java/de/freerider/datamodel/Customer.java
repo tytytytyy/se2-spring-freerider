@@ -1,4 +1,4 @@
-package de.freerider.model;
+package de.freerider.datamodel;
 
 
 public class Customer {
@@ -11,7 +11,7 @@ public class Customer {
 	//
 	private String contact;
 	//
-	enum Status { New, InRegistration, Active, Suspended, Deleted };
+	public enum Status { New, InRegistration, Active, Suspended, Deleted };
 	private Status status = Status.New;
 
 

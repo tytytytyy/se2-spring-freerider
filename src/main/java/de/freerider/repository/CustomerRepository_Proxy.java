@@ -46,9 +46,6 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 	 */
 	private int status = 0;
 
-	// reuse static guard function from CustomerRepository_Impl (as Java8 function variable)
-	private final BiFunction<Object, String, Boolean> guard = CustomerRepository_Impl::guard;
-
 
 	/**
 	 * Inject DataSource as dependency.
@@ -66,7 +63,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public <S extends Customer> S save( S entity ) {
-		guard.apply( entity, "entity is null" );	// throws IllegalArgumentException when entity is null
+		guard( entity, "entity is null" );	// throws IllegalArgumentException when entity is null
 		S previous = upstreamRepository.save( entity );			// save entity to actual CustomerRepository
 		saveData( downstreamDataSource, upstreamRepository );	// save CustomerRepository downstream
 		return previous;
@@ -74,7 +71,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public <S extends Customer> Iterable<S> saveAll( Iterable<S> entities ) {
-		guard.apply( entities, "entities is null" );
+		guard( entities, "entities is null" );
 		Iterable<S> result = upstreamRepository.saveAll( entities );
 		saveData( downstreamDataSource, upstreamRepository );
 		return result;
@@ -82,7 +79,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public Optional<Customer> findById( String id ) {
-		guard.apply( id, "id is null" );
+		guard( id, "id is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		Optional<Customer> result = upstreamRepository.findById( id );
 		return result;
@@ -90,7 +87,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public boolean existsById( String id ) {
-		guard.apply( id, "id is null" );
+		guard( id, "id is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		boolean result = upstreamRepository.existsById( id );
 		return result;
@@ -105,7 +102,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public Iterable<Customer> findAllById( Iterable<String> ids ) {
-		guard.apply( ids, "ids is null" );
+		guard( ids, "ids is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		Iterable<Customer> result = upstreamRepository.findAllById( ids );
 		return result;
@@ -120,7 +117,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public void deleteById( String id ) {
-		guard.apply( id, "id is null" );
+		guard( id, "id is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		upstreamRepository.deleteById( id );
 		saveData( downstreamDataSource, upstreamRepository );
@@ -128,7 +125,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public void delete( Customer entity ) {
-		guard.apply( entity, "entity is null" );
+		guard( entity, "entity is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		upstreamRepository.delete( entity );
 		saveData( downstreamDataSource, upstreamRepository );
@@ -136,7 +133,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public void deleteAllById( Iterable<? extends String> ids ) {
-		guard.apply( ids, "ids is null" );
+		guard( ids, "ids is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		upstreamRepository.deleteAllById( ids );
 		saveData( downstreamDataSource, upstreamRepository );
@@ -144,7 +141,7 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 
 	@Override
 	public void deleteAll( Iterable<? extends Customer> entities ) {
-		guard.apply( entities, "entities is null" );
+		guard( entities, "entities is null" );
 		loadData( downstreamDataSource, upstreamRepository );
 		upstreamRepository.deleteAll( entities );
 		saveData( downstreamDataSource, upstreamRepository );
@@ -260,6 +257,13 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 	 */
 	private boolean guard( DataSource<Customer> downstream, CrudRepository<Customer, String> upstream ) {
 		return downstream != null && upstream != null;
+	}
+
+	private boolean guard( Object arg, String msg ) {
+		if( arg == null ) {
+			throw new IllegalArgumentException( "argument: " + msg );
+		}
+		return true;
 	}
 
 }

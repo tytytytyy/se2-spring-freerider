@@ -27,7 +27,7 @@ public class Application {
 	CommandLineRunner runner() {
 		return args -> {
 			log( "CommandLineRunner runner()" );
-			//
+			/*
 			Customer c1 = new Customer( "Baerlinsky", "Max", "max3245@gmx.de" );
 			Customer c2 = new Customer( "Meyer", "Anne", "ma2958@gmx.de" );
 			c1.setStatus( Customer.Status.InRegistration );
@@ -35,7 +35,7 @@ public class Application {
 			//
 			customerRepository.save( c1 );
 			customerRepository.save( c2 );
-			//
+			*/
 			long count = customerRepository.count();	// triggers loading data
 			System.out.println( "CustomerRepository.count() -> " + count );
 			//

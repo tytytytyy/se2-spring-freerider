@@ -1,7 +1,6 @@
 package de.freerider;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +16,7 @@ import de.freerider.repository.CrudRepository;
 public class Application {
 
 	@Autowired
-	@Qualifier("CustomerRepository_Proxy")
-	CrudRepository<Customer,String> customerRepository;
+	private CrudRepository<Customer,String> customerRepository;
 
 
 	Application() {
@@ -29,6 +27,14 @@ public class Application {
 	CommandLineRunner runner() {
 		return args -> {
 			log( "CommandLineRunner runner()" );
+			//
+			Customer c1 = new Customer( "Baerlinsky", "Max", "max3245@gmx.de" );
+			Customer c2 = new Customer( "Meyer", "Anne", "ma2958@gmx.de" );
+			c1.setStatus( Customer.Status.InRegistration );
+			c1.setId( "C020301" );
+			//
+			customerRepository.save( c1 );
+			customerRepository.save( c2 );
 			//
 			long count = customerRepository.count();	// triggers loading data
 			System.out.println( "CustomerRepository.count() -> " + count );

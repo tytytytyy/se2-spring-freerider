@@ -95,8 +95,8 @@ public class CustomerRepositoryTest {
 		cR.save(thomas);
 
 		assertEquals(cR.count(),1);
-		assertEquals(cR.findById("1"),Optional.of(mats));
-		assertNotEquals(cR.findById("1"),Optional.of(thomas));
+		assertNotEquals(cR.findById("1"),Optional.of(mats));
+		assertEquals(cR.findById("1"),Optional.of(thomas));
 	}
 	
 	@Test
@@ -157,7 +157,7 @@ public class CustomerRepositoryTest {
 	@Test
 	public void testSaveAllNull(){
 		
-		assertThrows(NullPointerException.class, () -> cR.saveAll(null),
+		assertThrows(IllegalArgumentException.class, () -> cR.saveAll(null),
 		           "Obj cannt be null");		
 				
 		assertTrue(cR.count()==0);
@@ -183,10 +183,10 @@ public class CustomerRepositoryTest {
 		
 		cR.saveAll(customers);
 		
-		assertEquals(cR.count(), 2);
+		assertEquals(cR.count(), 1);
 
-		assertEquals(cR.findById("1"),Optional.of(mats));
-		assertNotEquals(cR.findById("1"), Optional.of(thomas));
+		assertNotEquals(cR.findById("1"),Optional.of(mats));
+		assertEquals(cR.findById("1"), Optional.of(thomas));
 
 	}
 	
@@ -211,7 +211,8 @@ public class CustomerRepositoryTest {
 		mats.setId(null);
 		cR.save(mats);
 
-		assertTrue(!cR.existsById(null));
+		assertThrows(IllegalArgumentException.class, () -> cR.existsById(null),
+		           "Obj cannt be null");
 
 	}
 	
@@ -226,8 +227,8 @@ public class CustomerRepositoryTest {
 		cR.save(mats);
 		cR.save(thomas);
 
-		assertEquals(cR.findById("1"),Optional.of(mats));
-		assertNotEquals(cR.findById("1"), Optional.of(thomas));
+		assertNotEquals(cR.findById("1"),Optional.of(mats));
+		assertEquals(cR.findById("1"), Optional.of(thomas));
 
 	}
 	
@@ -297,7 +298,7 @@ public class CustomerRepositoryTest {
 		cR.save(mats);
 		cR.save(thomas);
 		
-		assertThrows(NullPointerException.class, () -> cR.save(null),
+		assertThrows(IllegalArgumentException.class, () -> cR.save(null),
 		           "Obj cannt be null");		
 				
 		for (Customer entity : cR.findAll()) {
@@ -373,14 +374,13 @@ public class CustomerRepositoryTest {
 	}
 	
 	@Test
-	public void testCountMultiple() { 
+	public void testSaveTwice() { 
 		
 		mats.setId("1");	
 		
 		cR.save(mats);
-		
-		assertThrows(IllegalArgumentException.class, () ->cR.save(mats),
-		           "Cannt save same person twice");
+
+		cR.save(mats);
 		
 
 		assertEquals(cR.count(),1);

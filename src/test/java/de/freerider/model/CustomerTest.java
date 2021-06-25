@@ -69,6 +69,13 @@ class CustomerTest {
 		
 		mats.setId(null);
 		assertNull(mats.getId());
+		
+		mats.setStatus(Customer.Status.InRegistration);
+		mats.setId("1");
+
+		mats.setStatus(Customer.Status.Deleted);
+		mats.setId("1");
+
 	}
 	
 	
@@ -149,8 +156,10 @@ class CustomerTest {
 		mats.setStatus(Customer.Status.Suspended);
 		assertEquals(mats.getStatus(), Customer.Status.Suspended);
 		
+		
 		mats.setStatus(Customer.Status.Deleted);
 		assertEquals(mats.getStatus(), Customer.Status.Deleted);
+		
 		
 		
 	}

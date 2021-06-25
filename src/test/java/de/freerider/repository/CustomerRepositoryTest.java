@@ -100,29 +100,6 @@ public class CustomerRepositoryTest {
 		assertEquals(cR.findById("1"),Optional.of(thomas));
 	}
 	
-	@Test
-	public void saveCustomerWithIdNull(){
-		
-		mats.setId(null);
-		cR.save(mats);
-		assertEquals(cR.count(),1);
-	}
-	
-	
-	@Test
-	public void saveSameCustomerId(){
-		
-		mats.setId("1");
-		thomas.setId("1");
-
-		cR.save(mats);
-		cR.save(thomas);
-		
-		assertEquals(cR.findById("1"), Optional.of(thomas));
-		assertNotEquals(cR.findById("1"), Optional.of(mats));
-		assertTrue(cR.count() == 1);
-
-	}
 	
 	/*SaveAll Tests*/
 	//Regulaere Faelle
@@ -142,7 +119,7 @@ public class CustomerRepositoryTest {
 	}
 	
 	@Test
-	public void testSaveAllIdNullCustomerd() { //?
+	public void testSaveAllIdNullCustomers() {
 	
 		customers.add(mats);
 		customers.add(thomas);
@@ -164,14 +141,6 @@ public class CustomerRepositoryTest {
 		assertTrue(cR.count()==0);
 	}
 	
-	@Test
-	public void testsaveSameCustomers(){
-		
-		cR.save(mats);
-		cR.save(mats);
-		
-		assertTrue(cR.count() == 1);
-	}
 	
 	@Test
 	public void testsaveAllSameCustomersId(){
@@ -233,7 +202,7 @@ public class CustomerRepositoryTest {
 
 	}
 	
-	/*FindbyId Tests*/
+	/*FindAll Tests*/
 	//Regulaere Faelle
 	
 	
@@ -242,7 +211,7 @@ public class CustomerRepositoryTest {
 
 		cR.save(mats);
 		cR.save(thomas);
-
+		
 		int i = 0;
 
 	for (Customer entity : cR.findAll()) {
@@ -251,8 +220,9 @@ public class CustomerRepositoryTest {
 			i++;
 			
 			}
+	
 	assertEquals(i,2);
-	assertEquals(i,cR.count());
+	assertEquals(2,cR.count());
 
 	}
 	
@@ -375,7 +345,7 @@ public class CustomerRepositoryTest {
 	}
 	
 	@Test
-	public void testSaveTwice() { 
+	public void testCountSaveTwice() { 
 		
 		mats.setId("1");	
 		
@@ -482,31 +452,14 @@ public class CustomerRepositoryTest {
 
 	}
 	
+
 	
-	/*DeleteAllByid Tests*/
+	/*DeleteAllByListTests*/
 	//Regulaere Faelle
 	
 	
 	@Test
-	public void testDeleteAllById() {
-
-		mats.setId("1");
-		thomas.setId("2");
-	
-		
-		cR.deleteAllById(ids);
-
-		assertEquals(cR.count(),0);
-	
-
-	}
-	
-	/*DeleteAllByid Tests*/
-	//Regulaere Faelle
-	
-	
-	@Test
-	public void testDeleteAllBySet() {
+	public void testDeleteAllByList() {
 		
 		mats.setId("1");
 		thomas.setId("2");

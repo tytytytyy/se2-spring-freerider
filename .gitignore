@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+0.0.1-SNAPSHOT
+./spring-boot/
+
+
 ### assignment ###
 
 ./target

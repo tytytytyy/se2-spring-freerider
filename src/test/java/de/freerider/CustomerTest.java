@@ -41,12 +41,11 @@ class CustomerTest {
 		assertNull(mats.getId());
 		assertNull(thomas.getId());
 		
-		
 		cR.save(mats);
-		cR.save(thomas);
-		
+		cR.save(thomas);	
 
 	}
+	
 	@Test
 	public void testSetId() {
 		mats.setId("1");

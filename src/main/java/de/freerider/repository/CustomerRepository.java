@@ -120,7 +120,7 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 	public void deleteAll(Iterable<? extends Customer> entities) {
 		
 		for (Customer c : entities) {
-			customerList.remove(c);
+			this.customerList.remove(c.getId());
 		}		
 	}
 

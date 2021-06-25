@@ -2,7 +2,6 @@ package de.freerider.repository;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,6 +44,26 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 	 *  - -1: error
 	 */
 	private int status = 0;
+
+
+	/**
+	 * Guard function to protect load-/saveData() methods from none-present
+	 * downstream DataSource or upstream Respository.
+	 * 
+	 * @param downstream
+	 * @param upstream
+	 * @return
+	 */
+	private boolean guard( DataSource<Customer> downstream, CrudRepository<Customer, String> upstream ) {
+		return downstream != null && upstream != null;	// return false if guard condition is violated
+	}
+
+	private boolean guard( Object arg, String msg ) {
+		if( arg == null ) {		// throws IAE if guard condition is violated
+			throw new IllegalArgumentException( "argument: " + msg );
+		}
+		return true;
+	}
 
 
 	/**
@@ -244,26 +263,6 @@ public class CustomerRepository_Proxy implements CrudRepository<Customer, String
 				break;
 			}
 		}
-	}
-
-
-	/**
-	 * Guard function to protect load-/saveData() methods from none-present
-	 * downstream DataSource or upstream Respository.
-	 * 
-	 * @param downstream
-	 * @param upstream
-	 * @return
-	 */
-	private boolean guard( DataSource<Customer> downstream, CrudRepository<Customer, String> upstream ) {
-		return downstream != null && upstream != null;
-	}
-
-	private boolean guard( Object arg, String msg ) {
-		if( arg == null ) {
-			throw new IllegalArgumentException( "argument: " + msg );
-		}
-		return true;
 	}
 
 }

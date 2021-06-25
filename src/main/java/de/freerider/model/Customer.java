@@ -29,8 +29,14 @@ public class Customer {
 		return id;
 	}
 
+
 	public void setId(String id) {
-		this.id = id;
+
+		if(this.status==Status.New || this.status == Status.Deleted) {
+			this.id = id;
+			this.setStatus(Status.InRegistration);
+		}
+		
 	}
 
 	public String getLastName() {

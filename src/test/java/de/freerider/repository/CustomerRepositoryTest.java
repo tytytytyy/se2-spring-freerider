@@ -1,36 +1,25 @@
-package de.freerider;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertThrows;
+package de.freerider.repository;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
 
 import de.freerider.model.Customer;
-import de.freerider.model.Customer.Status;
 import de.freerider.repository.CrudRepository;
-import de.freerider.repository.CustomerRepository;
+
+import org.junit.jupiter.api.Test;
+
 
 @SpringBootTest
 public class CustomerRepositoryTest {
@@ -41,32 +30,18 @@ public class CustomerRepositoryTest {
 	// two sample customers
 	Customer mats = new Customer("Peter", "Hans", "hans@web.de");
 	Customer thomas= new Customer("Ale", "Marie", "marie@web.de");
+	
+	
 	List<Customer> customers = new ArrayList<Customer>();
 	List<String> ids = new ArrayList<String>();
 	
-	
-	private static int loglevel = 2;		// 0: silent; 1: @Test methods; 2: all methods
 
 	@BeforeEach
 	public void setUpEach() {
 		cR.deleteAll();
-
-		log( "@BeforeEach", "setUpEach()" );
 	}
 
-	private static void log( String label, String meth ) {
-		if( loglevel >= 2 ) {
-			if( label.equals( "@BeforeEach" ) ) {
-				System.out.println();
-			}
-			java.io.PrintStream out_ = System.out;
-			if( label.equals( "@BeforeAll" ) || label.equals( "@AfterAll" ) ) {
-				System.out.println();
-				out_ = System.err;	// print in red color
-			}
-			out_.println( label + ": " + SampleTests.class.getSimpleName() + "." + meth );
-		}
-	}
+
 
 	@Test
 	void contextLoads() {
@@ -102,7 +77,6 @@ public class CustomerRepositoryTest {
 	@Test
 	public void testSaveIdNullCustomer() {
 		
-		cR.deleteAll();
 		mats.setId(null);
 		cR.save(mats);
 		assertTrue(cR.count() == 1);
@@ -120,7 +94,9 @@ public class CustomerRepositoryTest {
 		cR.save(mats);
 		cR.save(thomas);
 
-		assertEquals(cR.count(),0);
+		assertEquals(cR.count(),1);
+		assertEquals(cR.findById("1"),Optional.of(mats));
+		assertNotEquals(cR.findById("1"),Optional.of(thomas));
 	}
 	
 	@Test
@@ -131,14 +107,6 @@ public class CustomerRepositoryTest {
 		assertEquals(cR.count(),1);
 	}
 	
-	@Test
-	public void saveSameCustomer(){
-		
-		cR.save(mats);
-		cR.save(mats);
-
-		assertTrue(cR.count() == 1);
-	}
 	
 	@Test
 	public void saveSameCustomerId(){
@@ -148,8 +116,11 @@ public class CustomerRepositoryTest {
 
 		cR.save(mats);
 		cR.save(thomas);
-
+		
+		assertEquals(cR.findById("1"), Optional.of(thomas));
+		assertNotEquals(cR.findById("1"), Optional.of(mats));
 		assertTrue(cR.count() == 1);
+
 	}
 	
 	/*SaveAll Tests*/
@@ -165,23 +136,19 @@ public class CustomerRepositoryTest {
 		cR.saveAll(customers);
 
 		assertEquals(cR.count(), 2);
-		assertNull(cR.findAll());
+		assertNotNull(cR.findAll());
 
 	}
 	
 	@Test
-	public void testSaveAllIdNullCustomerd() {
-		
-		mats.setId(null);
-		thomas.setId(null);
-
+	public void testSaveAllIdNullCustomerd() { //?
+	
 		customers.add(mats);
 		customers.add(thomas);
 
 		cR.saveAll(customers);
 
 		assertEquals(cR.count(), 2);
-		assertTrue(cR.findById("1").equals("1"));
 
 	}
 	
@@ -189,8 +156,10 @@ public class CustomerRepositoryTest {
 	
 	@Test
 	public void testSaveAllNull(){
-
-		cR.saveAll(null);
+		
+		assertThrows(NullPointerException.class, () -> cR.saveAll(null),
+		           "Obj cannt be null");		
+				
 		assertTrue(cR.count()==0);
 	}
 	
@@ -199,21 +168,25 @@ public class CustomerRepositoryTest {
 		
 		cR.save(mats);
 		cR.save(mats);
-
+		
 		assertTrue(cR.count() == 1);
 	}
 	
 	@Test
-	public void testsaveSameCustomersId(){
+	public void testsaveAllSameCustomersId(){
 	
 		mats.setId("1");
 		thomas.setId("1");
 
 		customers.add(mats);
 		customers.add(thomas);
-
+		
 		cR.saveAll(customers);
-		assertEquals(cR.count(), 1);
+		
+		assertEquals(cR.count(), 2);
+
+		assertEquals(cR.findById("1"),Optional.of(mats));
+		assertNotEquals(cR.findById("1"), Optional.of(thomas));
 
 	}
 	
@@ -228,12 +201,12 @@ public class CustomerRepositoryTest {
 		mats.setId("1");
 		cR.save(mats);
 
-		assertEquals(cR.findById("1"),"1");
+		assertEquals(cR.findById("1"), Optional.of(mats));
 
 	}
 	
 	@Test
-	public void testFindbyIdNull() {
+	public void testFindbyIdNull() { //?
 		
 		mats.setId(null);
 		cR.save(mats);
@@ -253,8 +226,8 @@ public class CustomerRepositoryTest {
 		cR.save(mats);
 		cR.save(thomas);
 
-		assertEquals(cR.findById("1"),mats);
-		assertNotEquals(cR.findById("1"),thomas);
+		assertEquals(cR.findById("1"),Optional.of(mats));
+		assertNotEquals(cR.findById("1"), Optional.of(thomas));
 
 	}
 	
@@ -305,21 +278,15 @@ public class CustomerRepositoryTest {
 	//Sonderfaelle
 
 	@Test
-	public void testFindAllNull() {
-
-		cR.save(null);
-		cR.save(null);
-		
-		int i = 0;
+	public void testFindAllEmpty() {
 
 	for (Customer entity : cR.findAll()) {
 			
 			assertNotNull(entity);
-			i++;
 			
 			}
-	assertEquals(i,0);
-	assertEquals(i,cR.count());
+	
+	assertEquals(0,cR.count());
 
 	}
 	
@@ -328,18 +295,18 @@ public class CustomerRepositoryTest {
 	public void testFindAllSomeNull() {
 
 		cR.save(mats);
-		cR.save(null);
+		cR.save(thomas);
 		
-		int i = 0;
-
-	for (Customer entity : cR.findAll()) {
+		assertThrows(NullPointerException.class, () -> cR.save(null),
+		           "Obj cannt be null");		
+				
+		for (Customer entity : cR.findAll()) {
 			
 			assertNotNull(entity);
-			i++;
 			
 			}
-	assertEquals(i,1);
-	assertEquals(i,cR.count());
+		
+		assertEquals(2 ,cR.count());
 
 	}
 	
@@ -406,14 +373,17 @@ public class CustomerRepositoryTest {
 	}
 	
 	@Test
-	public void testCountMultiple() {
-
+	public void testCountMultiple() { 
+		
 		mats.setId("1");	
 		
 		cR.save(mats);
-		cR.save(mats);
+		
+		assertThrows(IllegalArgumentException.class, () ->cR.save(mats),
+		           "Cannt save same person twice");
+		
 
-	assertEquals(cR.count(),1);
+		assertEquals(cR.count(),1);
 
 	}
 	
@@ -423,15 +393,13 @@ public class CustomerRepositoryTest {
 	
 	@Test
 	public void testdelete() {
-
+		
 		thomas.setId("2");
 		
-		cR.save(mats);
 		cR.save(thomas);
-		
 		cR.delete(thomas);
-
-		assertEquals(cR.count(),1);
+		
+		assertEquals(cR.count(),0);
 		assertTrue(!cR.existsById("2"));
 
 	}
@@ -439,9 +407,7 @@ public class CustomerRepositoryTest {
 
 	
 	@Test
-	public void testDeleteTwice() {
-
-		cR.deleteAll();
+	public void testDeleteSameTwice() {
 		
 		mats.setId("1");
 		thomas.setId("2");
@@ -453,8 +419,6 @@ public class CustomerRepositoryTest {
 		cR.delete(thomas);
 
 		assertTrue(!(cR.existsById("2")));
-		
-		System.out.println(cR.count());
 		assertEquals(cR.count(),1);
 
 	}
@@ -464,18 +428,42 @@ public class CustomerRepositoryTest {
 
 		mats.setId("1");
 		thomas.setId("2");
+		
+		cR.save(mats);
+		cR.save(thomas);
+		
+		
+		assertThrows(IllegalArgumentException.class, () ->cR.delete(null),
+		           "Obj cannt be null");	
+
+		assertEquals(cR.count(),2);
+		assertNotNull(cR.findById("2"));
+
+	}
+	
+	/*DeleteById Tests*/
+	//Regulaere Faelle
+	
+	@Test
+	public void testDeleteById() {
+
+		mats.setId("1");
+		thomas.setId("2");
 	
 		
 		cR.save(mats);
 		cR.save(thomas);
 		
-		cR.delete(null);
 
+		cR.deleteById("1");
 
-	assertEquals(cR.count(),2);
-	assertNotNull(cR.findById("2"));
+		assertEquals(cR.count(),1);
+		
+		assertThrows(NullPointerException.class, () ->assertNull(cR.findById("1")),
+		           "Obj cannt be null");	
 
 	}
+	
 	
 	/*DeleteAll Tests*/
 	//Regulaere Faelle
@@ -507,9 +495,8 @@ public class CustomerRepositoryTest {
 		
 		cR.deleteAllById(ids);
 
-	assertEquals(cR.count(),0);
-	assertNull(cR.findById("2"));
-	assertNull(cR.findAll());
+		assertEquals(cR.count(),0);
+	
 
 	}
 	
@@ -531,8 +518,10 @@ public class CustomerRepositoryTest {
 		
 		cR.deleteAll(customers);
 		
-		assertEquals(cR.count(),0);
+		assertTrue(!cR.existsById("1"));
 		assertTrue(!cR.existsById("2"));
+
+		assertEquals(cR.count(),0);
 
 	}
 }

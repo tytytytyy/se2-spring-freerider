@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
 
-import de.freerider.model.Customer;
+import de.freerider.datamodel.Customer;
 import de.freerider.repository.CrudRepository;
 
 import org.junit.jupiter.api.Test;

@@ -1,86 +1,73 @@
 package de.freerider;
 
 
-import java.util.ArrayList;
-
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
 
-import de.freerider.model.Customer;
-import de.freerider.repository.CustomerRepository;
-import de.freerider.repository.*;
+import de.freerider.datamodel.Customer;
+import de.freerider.repository.CrudRepository;
 
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
-		
+	@Autowired
+	private CrudRepository<Customer,String> customerRepository;
 
 
-		Customer hans = new Customer("Peter", "Hans", "hans@web.de");
-		Customer marie = new Customer("Ale", "Marie", "marie@web.de");
-		Customer baran = new Customer("Acar", "Baran", "baran@web.de");
-		Customer tom = new Customer("Jam", "Tom", "tom@web.de");
-		Customer tina = new Customer("Tina", "Schwarz", "tina@web.de");
-		
-		List cList = new ArrayList<Customer>(); 
-		CustomerRepository cR = new CustomerRepository();
-
-
-		tina.setId("001");
-		cR.save(tina);
-
-		System.out.println(tina.getFirstName());
-
-		cList.add(hans);
-		cList.add(baran);
-		cList.add(marie);
-		cList.add(tom);
-		
-
-		
-		cR.saveAll(cList);
-		
-		cR.save(tina);
-		tina.setId("001");
-
-		cR.existsById("001");
-		cR.findAll();
-		cR.count();
-		cR.deleteById("001");
-		cR.delete(hans);
-		
-		System.out.println(cR.count());
-
-
-		//SpringApplication.run(Application.class, args);
-
+	Application() {
+		log( "Constructor()" );
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+	CommandLineRunner runner() {
 		return args -> {
-
-			System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-			String[] beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				System.out.println(beanName);
-
-			}
-
-			
-
-			
-			
+			log( "CommandLineRunner runner()" );
+			/*
+			Customer c1 = new Customer( "Baerlinsky", "Max", "max3245@gmx.de" );
+			Customer c2 = new Customer( "Meyer", "Anne", "ma2958@gmx.de" );
+			c1.setStatus( Customer.Status.InRegistration );
+			c1.setId( "C020301" );
+			//
+			customerRepository.save( c1 );
+			customerRepository.save( c2 );
+			*/
+			long count = customerRepository.count();	// triggers loading data
+			System.out.println( "CustomerRepository.count() -> " + count );
+			//
+			String id = "C020301";
+			customerRepository.findById( id ).ifPresentOrElse( c -> { log( "Customer found", c ); }, () -> {
+				log( "No Customer found for id: " + id, (Customer)null );
+			});
 		};
+	}
+
+	@EventListener(ApplicationReadyEvent.class)
+	void doWhenApplicationReady() {
+		log( "doWhenApplicationReady()" );
+	}
+
+	public static void main( String[] args ) {
+		log( "main()" );
+		//
+		SpringApplication.run( Application.class, args );
+		//
+		log( "main() leaving" );
+	}
+
+
+	public static void log( String msg, Customer customer ) {
+		System.out.println( msg + ( customer == null? "" : ": id:" + customer.getId() + ", " +
+			customer.getLastName() + ", " + customer.getFirstName() + ", contact:" +
+				customer.getContact() + ", status:\"" + customer.getStatus() + "\"" ) );
+	}
+
+	public static void log( String msg ) {
+		//System.err.println( Application.class.getSimpleName() + "::" + msg );
 	}
 
 }

@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import de.freerider.model.Customer;
-import de.freerider.model.Customer.Status;
+import de.freerider.datamodel.Customer;
+import de.freerider.datamodel.Customer.Status;
 import de.freerider.repository.CustomerRepository;
 
 @SpringBootTest

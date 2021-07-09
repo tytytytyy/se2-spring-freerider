@@ -7,14 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-
-import de.freerider.model.Customer;
-import de.freerider.model.Customer.Status;
+import de.freerider.datamodel.Customer;
+import de.freerider.datamodel.Customer.Status;
 
 
 @Component
+@Qualifier("CustomerRepository_Impl")
 public class CustomerRepository implements CrudRepository<Customer, String> {
 	//
 	private final IDGenerator idGen = new IDGenerator( "C", IDGenerator.IDTYPE.NUM, 6 );

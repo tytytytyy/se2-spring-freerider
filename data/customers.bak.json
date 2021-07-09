@@ -1,0 +1,31 @@
+[ {
+  "id" : "C630614",
+  "lastName" : "Korn",
+  "firstName" : "Hellen",
+  "contact" : "hellen@gmail.de",
+  "status" : "New"
+}, {
+  "id" : "C056554",
+  "lastName" : "Meyer",
+  "firstName" : "Anne",
+  "contact" : "ma2958@gmx.de",
+  "status" : "New"
+}, {
+  "id" : "C020301",
+  "lastName" : "Baerlinsky",
+  "firstName" : "Max",
+  "contact" : "max3245@gmx.de",
+  "status" : "InRegistration"
+}, {
+  "id" : "C269608",
+  "lastName" : "May",
+  "firstName" : "Angelika",
+  "contact" : "s482045@berliner-hochschule.de",
+  "status" : "New"
+}, {
+  "id" : "C423041",
+  "lastName" : "Vogel",
+  "firstName" : "Paul",
+  "contact" : "paul.vogel@erliner-hochschule.de",
+  "status" : "New"
+} ]

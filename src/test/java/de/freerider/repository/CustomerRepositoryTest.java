@@ -430,8 +430,7 @@ public class CustomerRepositoryTest {
 
 		assertEquals(cR.count(),1);
 		
-		assertThrows(NullPointerException.class, () ->assertNull(cR.findById("1")),
-		           "Obj cannt be null");	
+		assertEquals(Optional.empty(),cR.findById("1"));
 
 	}
 	

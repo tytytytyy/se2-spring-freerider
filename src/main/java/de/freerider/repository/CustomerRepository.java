@@ -100,7 +100,7 @@ public class CustomerRepository implements CrudRepository<Customer, String> {
 			return Optional.empty();
 		}
 	
-		return Optional.of(customerList.get(id));
+		return Optional.ofNullable(customerList.get(id));
 	}
 
 	@Override

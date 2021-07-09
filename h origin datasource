@@ -1,0 +1,132 @@
+[33mcommit eb17d8ea207c7d9bd5c6305502eb7719ce19c87a[m[33m ([m[1;36mHEAD -> [m[1;32mdatasource[m[33m)[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jul 9 20:28:50 2021 +0200
+
+    merge commit JSON datasource
+
+[33mcommit f8325b1897cbab9fc7f02b9e46194c9efca5c645[m
+Merge: a3e708a 317b78b
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jul 9 20:15:10 2021 +0200
+
+    E1 merge comlete
+
+[33mcommit a3e708a9a4bbaa8c2d22befda42fccdadcfa1cc5[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmaster[m[33m, [m[1;32mmain[m[33m)[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Sat Jun 26 00:23:26 2021 +0200
+
+    D2 done
+
+[33mcommit b08bbabba2e9377b76cd73e4e51f5b6d86629b57[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 25 23:54:24 2021 +0200
+
+    sure-fire-reports
+
+[33mcommit 100d380db314d11471c7eb449219cbb7c1056d6b[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 25 23:44:26 2021 +0200
+
+    test implementation 2
+
+[33mcommit 59a14d47eab6bd28d965dd845899762b565ba58a[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 25 23:30:43 2021 +0200
+
+    test implementation
+
+[33mcommit 317b78b24e6699227b33cd01ccb5d84b445a1c37[m[33m ([m[1;31msgra64/datasource[m[33m)[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Fri Jun 25 21:53:32 2021 +0200
+
+    moved guard methods to the beginning
+
+[33mcommit a65d80ba64a3f43111b5d2b60c01eda40214052d[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 25 12:31:58 2021 +0200
+
+    clean up repo
+
+[33mcommit 86eb43661f67931a422b62150769c14ff45eaaef[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 25 12:28:36 2021 +0200
+
+    add to gotigore
+
+[33mcommit af77b9668826bd71843894edb93b9cb64a68edd1[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 25 12:10:15 2021 +0200
+
+    clean repository
+
+[33mcommit f6e179f180eb7b627b089c120cb15e3dc51008a5[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Thu Jun 24 21:17:24 2021 +0200
+
+    added customer.json backup to restore data
+
+[33mcommit fec7c3c27326213f8815b661390297ba5a2c6763[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Sun Jun 20 23:19:29 2021 +0200
+
+    disabled saving Customers in CommandLineRunner in Application.java
+
+[33mcommit c74d800354a85cf78847d0b2cebbbbef6c96c064[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Sun Jun 20 20:46:42 2021 +0200
+
+    fixed auto-wiring problem
+
+[33mcommit e964f3f84e29ade14bd6c250af6a260a71b1a1dc[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Sat Jun 19 21:36:52 2021 +0200
+
+    removed guard() dependency: CustomerRepository_Impl::guard
+
+[33mcommit 288918a6feb8087d7026970f554490f15ba8a68a[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Fri Jun 18 11:22:20 2021 +0200
+
+    Proxy for CustomerRepository to connect to JSON-DataSource
+
+[33mcommit dc86659038ef93b022297c38132bdc895c06df7d[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 11 21:41:37 2021 +0200
+
+    D2
+
+[33mcommit c494b23bcb74abdf8be0ced8d4d05ce5dab1fcb5[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Fri Jun 11 11:00:59 2021 +0200
+
+    CustomerRepository implementation to save/load data to/from JSON file
+
+[33mcommit e767cd08a038bb7c5eae065f5818f2961f4a2791[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Fri Jun 11 10:49:25 2021 +0200
+
+    @SpringBootApplication: Application.java, HelloController.java
+
+[33mcommit aa41ae0bee41f51fdc9875a8525aefa004d120d7[m
+Author: Sven Graupner <sgraupner@beuth-hochschule.de>
+Date:   Fri Jun 11 10:29:18 2021 +0200
+
+    initial check-in .gitignore
+
+[33mcommit fcf8739ea3cac0b9fe46218484512b25ab6253c8[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 4 16:12:21 2021 +0200
+
+    done
+
+[33mcommit 30189fc159915042c1d76135cb5aa7778885651a[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri Jun 4 16:00:09 2021 +0200
+
+    not quite workin
+
+[33mcommit 4388f0d3efe27b4333d92bcce0dcf737a022abf5[m
+Author: Tabea <tabea99@hotmail.de>
+Date:   Fri May 28 18:56:48 2021 +0200
+
+    first commit finished C3

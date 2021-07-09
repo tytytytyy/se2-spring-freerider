@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-0.0.1-SNAPSHOT
-./spring-boot/
-
-
-### assignment ###
-
-./target
-/.mvn/
-*.mvn
-/mvnw
-/mvnw.cmd/
-
-=======
-
 ### STS, eclipse ###
 .apt_generated
 .classpath
@@ -40,8 +19,6 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-<<<<<<< HEAD
-=======
 
 ### VS Code ###
 .vscode/
@@ -73,16 +50,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
->>>>>>> sgra64/datasource
+
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-<<<<<<< HEAD
-### VS Code ###
-.vscode/
-=======
 ### maven wrapper ###
 .mvn
 mvnw*
->>>>>>> sgra64/datasource
+
